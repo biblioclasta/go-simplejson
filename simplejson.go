@@ -8,7 +8,7 @@ import (
 
 // returns the current implementation version
 func Version() string {
-	return "0.4.2"
+	return "0.4.3"
 }
 
 type Json struct {
@@ -168,6 +168,23 @@ func (j *Json) StringArray() ([]string, error) {
 			return nil, err
 		}
 		retArr = append(retArr, s)
+	}
+	return retArr, nil
+}
+
+// IntArray type asserts to an `array` of `int`
+func (j *Json) IntArray() ([]int, error) {
+	arr, err := j.Array()
+	if err != nil {
+		return nil, err
+	}
+	retArr := make([]int, 0, len(arr))
+	for _, a := range arr {
+		i, ok := int(a.(float64))
+		if !ok {
+			return nil, err
+		}
+		retArr = append(retArr, i)
 	}
 	return retArr, nil
 }
