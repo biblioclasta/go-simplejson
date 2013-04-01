@@ -180,10 +180,7 @@ func (j *Json) IntArray() ([]int, error) {
 	}
 	retArr := make([]int, 0, len(arr))
 	for _, a := range arr {
-		i, ok := int(a.(float64))
-		if !ok {
-			return nil, err
-		}
+		i := int(a.(float64))
 		retArr = append(retArr, i)
 	}
 	return retArr, nil
