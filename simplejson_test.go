@@ -18,6 +18,7 @@ func TestSimplejson(t *testing.T) {
 	js, err := NewJson([]byte(`{ 
 		"test": { 
 			"string_array": ["asdf", "ghjk", "zxcv"],
+			"int_array": [1, 4, 7],
 			"array": [1, "2", 3],
 			"arraywithsubs": [{"subkeyone": 1},
 			{"subkeytwo": 2, "subkeythree": 3}],
@@ -90,6 +91,12 @@ func TestSimplejson(t *testing.T) {
 	assert.Equal(t, strs[0], "asdf")
 	assert.Equal(t, strs[1], "ghjk")
 	assert.Equal(t, strs[2], "zxcv")
+
+	ints, erri := js.Get("test").Get("int_array").StringArray()
+	assert.Equal(t, erri, nil)
+	assert.Equal(t, ints[0], 1)
+	assert.Equal(t, ints[1], 4)
+	assert.Equal(t, ints[2], 7)
 }
 
 func TestStdlibInterfaces(t *testing.T) {

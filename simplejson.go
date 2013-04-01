@@ -26,6 +26,21 @@ func NewJson(body []byte) (*Json, error) {
 	return j, nil
 }
 
+// Create a Json object
+func Create(data interface{}) (*Json) {
+	j := new(Json)
+	j.data = data
+	return j
+}
+
+// Make a Json and assert as a map[string]interface{}
+func MakeMap() (j *Json, m map[string]interface{}, err error) {
+	initMap := make(map[string]interface{})
+	j = Create(initMap)
+	m, err = j.Map() 
+	return
+}
+
 // Encode returns its marshaled data as `[]byte`
 func (j *Json) Encode() ([]byte, error) {
 	return j.MarshalJSON()
